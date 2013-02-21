@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C98ECC816D6A4E70041CCD4 /* WNPhotosImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C98ECC716D6A4E70041CCD4 /* WNPhotosImporter.m */; };
+		2C98ECCC16D6A5070041CCD4 /* WNResponseImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C98ECCA16D6A5070041CCD4 /* WNResponseImporter.m */; };
 		69ED70990ABCCCF08552309E /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 69ED7B4911B91C1BD15F97F6 /* AFXMLRequestOperation.m */; };
 		69ED7137D2BF98B631108CB5 /* WNCategoryListExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 69ED7F453A026D9B6253A37E /* WNCategoryListExtension.m */; };
 		69ED714106F9041A311956C6 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 69ED70243F1BCE2197F68D6F /* UIImageView+AFNetworking.m */; };
 		69ED71D9D0D03CDE8CA4B110 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 69ED77817F934E83C0004834 /* AFHTTPClient.m */; };
-		69ED71F78B1B820B9BFEA1AB /* WNPhotoResponseImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 69ED783D0D44D97FA14D92FE /* WNPhotoResponseImporter.m */; };
 		69ED73BFCBD80C8FD77F5626 /* WNRequestGroupExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 69ED7609869E6DF565A9ECFB /* WNRequestGroupExtension.m */; };
 		69ED73D67678F113AEC8DD8D /* WNPhoto+WNNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 69ED7896E256D01694F36E51 /* WNPhoto+WNNetwork.m */; };
 		69ED74BEC5CFCF27F79ED3BD /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 69ED78600B5D01EB8AEA4513 /* Default.png */; };
@@ -41,6 +42,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C98ECC616D6A4E70041CCD4 /* WNPhotosImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WNPhotosImporter.h; sourceTree = "<group>"; };
+		2C98ECC716D6A4E70041CCD4 /* WNPhotosImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WNPhotosImporter.m; sourceTree = "<group>"; };
+		2C98ECC916D6A5070041CCD4 /* WNResponseImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WNResponseImporter.h; sourceTree = "<group>"; };
+		2C98ECCA16D6A5070041CCD4 /* WNResponseImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WNResponseImporter.m; sourceTree = "<group>"; };
+		2C98ECCB16D6A5070041CCD4 /* WNResponseImporter+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WNResponseImporter+Protected.h"; sourceTree = "<group>"; };
 		69ED70243F1BCE2197F68D6F /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
 		69ED706378E60016030D58B1 /* YASimpleParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YASimpleParser.m; sourceTree = "<group>"; };
 		69ED70CEF4E0FA32D4205EA5 /* AFImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFImageCache.m; sourceTree = "<group>"; };
@@ -67,13 +73,11 @@
 		69ED775D634347748292F2C8 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
 		69ED77817F934E83C0004834 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		69ED77D9C812C4E94BF0EFDD /* WNCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WNCategory.h; sourceTree = "<group>"; };
-		69ED783D0D44D97FA14D92FE /* WNPhotoResponseImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WNPhotoResponseImporter.m; sourceTree = "<group>"; };
 		69ED78600B5D01EB8AEA4513 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		69ED78908BB9E961ACA0B44D /* AFPropertyListRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFPropertyListRequestOperation.m; sourceTree = "<group>"; };
 		69ED789447AE4D5765F883ED /* YAResponseImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YAResponseImporter.h; sourceTree = "<group>"; };
 		69ED7896E256D01694F36E51 /* WNPhoto+WNNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WNPhoto+WNNetwork.m"; sourceTree = "<group>"; };
 		69ED789E17BA51D60A8A3633 /* WNObjectsGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WNObjectsGenerator.m; sourceTree = "<group>"; };
-		69ED78B91E6D1EAE9A6C4858 /* WNPhotoResponseImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WNPhotoResponseImporter.h; sourceTree = "<group>"; };
 		69ED7958660BAE1094598912 /* WNCategoryListExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WNCategoryListExtension.h; sourceTree = "<group>"; };
 		69ED79C24445FE6369C6EB05 /* AFImageRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFImageRequestOperation.m; sourceTree = "<group>"; };
 		69ED7A9D509D3DBE89261B34 /* AFImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFImageCache.h; sourceTree = "<group>"; };
@@ -116,6 +120,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C98ECC516D6A4E70041CCD4 /* Photos Importer */ = {
+			isa = PBXGroup;
+			children = (
+				2C98ECC616D6A4E70041CCD4 /* WNPhotosImporter.h */,
+				2C98ECC716D6A4E70041CCD4 /* WNPhotosImporter.m */,
+			);
+			path = "Photos Importer";
+			sourceTree = "<group>";
+		};
 		69ED705580A3384060525127 /* NetworkSample */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,8 +171,9 @@
 		69ED73711C994300F8B28DB1 /* WN Importer */ = {
 			isa = PBXGroup;
 			children = (
-				69ED78B91E6D1EAE9A6C4858 /* WNPhotoResponseImporter.h */,
-				69ED783D0D44D97FA14D92FE /* WNPhotoResponseImporter.m */,
+				2C98ECC916D6A5070041CCD4 /* WNResponseImporter.h */,
+				2C98ECCA16D6A5070041CCD4 /* WNResponseImporter.m */,
+				2C98ECCB16D6A5070041CCD4 /* WNResponseImporter+Protected.h */,
 			);
 			path = "WN Importer";
 			sourceTree = "<group>";
@@ -267,6 +281,7 @@
 		69ED77AAF1B01005CEC360A6 /* Importers */ = {
 			isa = PBXGroup;
 			children = (
+				2C98ECC516D6A4E70041CCD4 /* Photos Importer */,
 				69ED7AD55AE6312687DA5A75 /* Base Importer */,
 				69ED73711C994300F8B28DB1 /* WN Importer */,
 			);
@@ -453,11 +468,12 @@
 				69ED7137D2BF98B631108CB5 /* WNCategoryListExtension.m in Sources */,
 				69ED73BFCBD80C8FD77F5626 /* WNRequestGroupExtension.m in Sources */,
 				69ED76916E190AE061DF6D56 /* YAResponseImporter.m in Sources */,
-				69ED71F78B1B820B9BFEA1AB /* WNPhotoResponseImporter.m in Sources */,
 				69ED7B7BF8FC4B7CD83FF9A2 /* WNObjectsGenerator.m in Sources */,
 				69ED78275C158414D05C5588 /* WNPhoto+WNPrimaryImport.m in Sources */,
 				69ED7C0C66AB1DCE9AB782A7 /* YASimpleParser.m in Sources */,
 				69ED79F52BF1196D491AFBC1 /* ViewController.m in Sources */,
+				2C98ECC816D6A4E70041CCD4 /* WNPhotosImporter.m in Sources */,
+				2C98ECCC16D6A5070041CCD4 /* WNResponseImporter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -563,6 +579,7 @@
 				69ED7ABE5046396CA7B2F677 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		69ED7B7428E5B479A306B4C9 /* Build configuration list for PBXProject "NetworkSample" */ = {
 			isa = XCConfigurationList;

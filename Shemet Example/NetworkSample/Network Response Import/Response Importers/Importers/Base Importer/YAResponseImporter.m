@@ -1,3 +1,10 @@
+//
+//  YAModelImporter.m
+//  
+//
+//  Created by Dima Shemet on 28.08.12.
+//  Copyright (c) 2012 Yalantis. All rights reserved.
+//
 
 #import "YAResponseImporter.h"
 #import "NSException+YAAdditions.h"
@@ -48,26 +55,28 @@
 
 @end
 
+#pragma mark - Response Importer Part
 
 #import "YAResponseImporter+Protected.h"
 
 @interface YAResponseImporter ()
 
+@property (nonatomic) BOOL importing;
+
+- (void)importResponseObjectSync:(YAResponseObject *)object;
+- (void)importResponseObjectAsync:(YAResponseObject *)object;
+
+
+@property (nonatomic, weak) YAResponseImporter *parentImporter;
+
+@property (nonatomic, strong) NSMutableSet *registeredExtensions;
+
 @property (nonatomic, strong) NSManagedObjectContext *importContext;
-@property (nonatomic, strong) NSArray *importData;
 @property (nonatomic, strong) NSMutableArray *processedObjectIDs;
 @property (nonatomic, strong) NSMutableArray *processedObjects;
 
-@property (nonatomic) BOOL importing;
+@property (nonatomic, strong) YAResponseObject *responseObject;
 
-@property (nonatomic, weak) YAResponseImporter *parentImporter;
-@property (nonatomic, unsafe_unretained) dispatch_queue_t callbackQueue;
-@property (nonatomic, copy) void (^callbackBlock)(id importer);
-
-- (void)performImportSync;
-- (void)performImportAsync;
-
-@property (nonatomic, strong) NSMutableSet *registeredExtensions;
 
 - (void)extensionsWillBeginImport;
 - (void)extensionsWillEndImport;
@@ -78,12 +87,7 @@
 
 @implementation YAResponseImporter
 
-@synthesize processedObjectIDs = _objectIDs;
-@synthesize parentImporter = _parentImporter;
-@synthesize callbackBlock = _callbackBlock;
-@synthesize callbackQueue = _callbackQueue;
 @synthesize importContext = _importContext;
-@synthesize importData = _importData;
 
 #pragma mark - Init API
 
@@ -116,21 +120,6 @@
 }
 
 #pragma mark - Properties API
-
-- (void)setCallbackQueue:(dispatch_queue_t)callbackQueue
-{
-    if (_callbackQueue != nil)
-    {
-        dispatch_release(_callbackQueue);
-        _callbackQueue = nil;
-    }
-    
-    if (callbackQueue != nil)
-    {
-        dispatch_retain(callbackQueue);
-        _callbackQueue = callbackQueue;
-    }
-}
 
 - (NSManagedObjectContext *)importContext
 {
@@ -204,49 +193,67 @@
 
 #pragma mark - Private API
 
-- (void)performImportSync
+- (void)importResponseObjectSync:(YAResponseObject *)object
 {
-    [self willBeginImport];
-    
-    for (id data in self.importData)
-    {
-        @autoreleasepool
-        {
-            NSManagedObject *entry = [self processEntryImport:data];
+	self.responseObject = object;
+
+	[self willBeginImport];
+
+	for (id dataEntry in self.importData)
+	{
+		@autoreleasepool
+		{
+			NSManagedObject *entry = [self processEntryImport:dataEntry];
 			if (entry != nil)
 			{
 				[self.processedObjects addObject:entry];
 			}
 
-			[self extensionsProcessEntry:entry fromData:data];
-        }
-    }
-    
-    [self willEndImport];
+			[self extensionsProcessEntry:entry fromData:dataEntry];
+		}
+	}
 
-    [self didEndImport];
-    
-    [(NSMutableArray *)self.processedObjectIDs addObjectsFromArray:[self.processedObjects valueForKey:@"objectID"]];
-    
-    self.importContext = nil;
+	[self willEndImport];
+
+	[self didEndImport];
+
+	[(NSMutableArray *)self.processedObjectIDs addObjectsFromArray:[self.processedObjects valueForKey:@"objectID"]];
+
+	self.responseObject = nil;
+	self.importContext = nil;
 }
 
-- (void)performImportAsync
+- (void)importResponseObjectAsync:(YAResponseObject *)object
 {
-    [self.importContext performBlock:^
-    {
-        @autoreleasepool
-        {
-            [self performImportSync];
-            
-            dispatch_sync(self.callbackQueue, ^
-            {
-                self.callbackBlock(self);
-            });
-            self.callbackQueue = nil;
-            self.callbackBlock = nil;
-        }
-    }];
+	[self.importContext performBlock:^
+	{
+		@autoreleasepool
+		{
+			dispatch_queue_t callbackQueue = object.callbackQueue != nil ? object.callbackQueue :
+																		dispatch_get_main_queue();
+			dispatch_retain(callbackQueue);
+
+			if (object.importBeginCallback != nil)
+			{
+				dispatch_sync(callbackQueue, ^
+				{
+					object.importBeginCallback(self, object);
+				});
+			}
+
+			[self importResponseObjectSync:object];
+
+			if (object.importEndCallback != nil)
+			{
+				dispatch_async(callbackQueue, ^
+				{
+					object.importEndCallback(self, object);
+				});
+			}
+
+			dispatch_release(callbackQueue);
+		}
+	}];
 }
 
 #pragma mark - Public API
@@ -254,22 +261,22 @@
 - (void)importData:(NSArray *)data
 {
 	NSParameterAssert(data != nil);
-    self.importData = data;
-    self.callbackBlock = nil;
-    self.callbackQueue = nil;
-    
-    [self performImportSync];
+
+	[self importResponseObjectSync:[[YAResponseObject alloc] initWithData:data endCallback:nil]];
 }
 
 - (void)importData:(NSArray *)data completionBlock:(void (^)(id))block
 {
-    NSParameterAssert(block != nil);
-    
-    self.importData = data;
-    self.callbackBlock = block;
-    self.callbackQueue = dispatch_get_main_queue();
-    
-    [self performImportAsync];
+	YAResponseObjectCallback callback = nil;
+	if (block != nil)
+	{
+		callback = ^(YAResponseImporter *importer, YAResponseObject *responseObject)
+		{
+			block(importer);
+		};
+	}
+
+	[self importResponseObjectAsync:[[YAResponseObject alloc] initWithData:data endCallback:callback]];
 }
 
 @end
@@ -280,8 +287,14 @@
 @dynamic importContext;
 @dynamic importData;
 @dynamic parentImporter;
+@dynamic responseObject;
 
 #pragma mark - Protected API
+
+- (NSArray *)importData
+{
+	return self.responseObject.data;
+}
 
 - (id)processEntryImport:(id)data
 {
