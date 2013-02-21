@@ -1,11 +1,8 @@
 
 #import "WNPhoto+WNPrimaryImport.h"
-#import "WNCategoryCounterImporter.h"
+
 #import "YASimpleParser.h"
-#import "WNUserStorage.h"
-#import "WNNetworkConstants.h"
 #import "WNPhotosImporter.h"
-#import "WNPhotoResponseImporter.h"
 #import "WNCategoryListExtension.h"
 
 @implementation WNPhoto (WNImport)
@@ -18,7 +15,7 @@
 
 	NSArray *photos = [parser arrayForKey:@"photos"];
 
-	WNPhotoResponseImporter *importer = [WNPhotoResponseImporter new];
+	WNPhotosImporter *importer = [WNPhotosImporter new];
 	// initial means, that all other photos (not processed in this response, but, probably
 	// related to this response, will be removed.
 	// in real application this rule (to which response photos related) by relationship.
@@ -34,10 +31,13 @@
 		nil];
 	[importer addExtensions:extensions];
 
-	[importer importData:photos completionBlock:^(id instance)
-	{
-		callback(YES, [(YAResponseImporter *)instance processedObjectIDs]);
-	}];
+    YAResponseObject *responseObject = [YAResponseObject objectWithData:photos
+                                                            endCallback:^(YAResponseImporter *instance, YAResponseObject *responseObject)
+    {
+        callback(YES, [(YAResponseImporter *)instance processedObjectIDs]);
+    }];
+    
+    [importer importResponseObjectAsync:responseObject];
 }
 
 @end
