@@ -6,7 +6,6 @@
 #import "WNCategory.h"
 #import "WNPhoto.h"
 
-#import "WNNetworkConstants.h"
 #import "YASimpleParser.h"
 
 @interface WNCategoryListExtension ()

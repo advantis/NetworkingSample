@@ -1,11 +1,19 @@
+//
+//  YAModelImporter.h
+//  
+//
+//  Created by Dima Shemet on 28.08.12.
+//  Copyright (c) 2012 Yalantis. All rights reserved.
+//
 
 #import <Foundation/Foundation.h>
+
+#import "YAResponseObject.h"
 
 @interface YAResponseImporter : NSObject
 {
     @protected
     NSManagedObjectContext *_importContext;
-    NSArray *_importData;
 }
 
 @property (nonatomic, strong, readonly) NSArray *processedObjectIDs;
@@ -13,8 +21,11 @@
 - (id)initWithParentImporter:(YAResponseImporter *)parentImporter;
 + (id)importerWithParentImporter:(YAResponseImporter *)parentImporter;
 
-- (void)importData:(NSArray *)data;
-- (void)importData:(NSArray *)data completionBlock:(void (^)(id importer))block;
+- (void)importData:(NSArray *)data __deprecated;
+- (void)importData:(NSArray *)data completionBlock:(void (^)(id importer))block __deprecated;
+
+- (void)importResponseObjectSync:(YAResponseObject *)object;
+- (void)importResponseObjectAsync:(YAResponseObject *)object;
 
 @property (nonatomic, readonly, getter=isImporting) BOOL importing;
 
@@ -26,6 +37,8 @@
 - (void)removeExtensions:(NSSet *)extensions;
 
 @end
+
+#pragma mark - Importer Extension
 
 @interface YAImporterExtension : NSObject
 
